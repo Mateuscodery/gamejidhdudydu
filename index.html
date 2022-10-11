@@ -1,0 +1,75 @@
+﻿<!DOCTYPE HTML>
+<html lang="pt-br">
+ <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta charset="utf-8"/>
+  <style>
+   *{margin:0px;}
+   body{width:100%;height:100vh;overflow:hidden; background:black;}
+   #tela{width:52%; height:70vh; border:5px solid none;position:relative; top:10%; margin:auto;}
+   #parede_cima{z-index:0; width:100%;height:15vh; position:absolute; top:-1px;}
+   #parede_baixo1{z-index:1;width:33%;height:15vh; position:absolute;bottom:-1px;left:0px;}
+   #parede_baixo2{z-index:1;width:33%;height:15vh; position:absolute;bottom:-1px;right:0px;}
+   #parede_esquerda{width:10%;height:48vh; position:absolute; top:11%; left:-0.4%;}
+   #parede_direita{width:10%;height:48vh; position:absolute; top:11%; right:0%;}
+   #bau{z-index:2; width:18%;height:13vh; position:absolute; top:15%; right:14%;}
+   #entrar{z-index:2 ;width:10%;height:10vh; position:absolute; bottom:-14%; right:44%; animation: animate 2s linear infinite;}
+   #porta{width:34%;height:25vh; position:absolute; bottom:0px; right:33%;opacity:0.2;}
+   #mesa{width:30%;height:14vh; position:absolute; top:39%; left:9.4%;}
+   #sombra{z-index:0; width:100%;height:15vh; position:absolute; top:7%; background:black; opacity:0.7;}
+   #sombra1{z-index:2; width:18%;height:13vh; position:absolute; top:17%; right:14%;background:black; opacity:0.7;}
+   #sombra2{width:10%;height:48vh; position:absolute; top:27.7%; right:4%;background:black; opacity:0.7;}
+   #sombra3{width:30%;height:14vh; position:absolute; top:44%; left:9.4%; background:black; opacity:0.7;}
+   #chao{z-index:0; width:100%;height:100%; position:absolute;}
+   #velho{z-index:0;width:16%;height:16vh;position:absolute;top:20%; left:20.4%;}
+   #player{z-index:0;width:16%;height:16vh;position:absolute; bottom:10px; right:42%;}
+   @keyframes animate{
+    0%{
+       opacity: 0;
+       }
+    50%{
+       opacity: 1;
+       }
+   100%{
+     opacity: 0;
+       }
+      }
+  </style>
+  <title>htyhtge</title>
+ </head>
+ <body>
+  <div id="tela">
+   <img src="chao.png" id="chao">
+   <div id="sombra"></div>
+   <div id="sombra1"></div>
+   <div id="sombra2"></div>
+   <div id="sombra3"></div>
+   <img src="velho-frente.png" id="velho">
+   <img src="player-atras.png" id="player">
+   <img src="Bloco1.png" id="parede_cima">	
+   <img src="Bloco2.png" id="parede_baixo1">
+   <img src="Bloco2.png" id="parede_baixo2">
+   <img src="Bloco3.png" id="parede_esquerda">
+   <img src="Bloco3.png" id="parede_direita">
+   <img src="seta.png" id="entrar">
+   <img src="mesa.png" id="mesa">
+   <img src="bau.png" id="bau">
+   <img src="porta.png" id="porta">
+  </div>
+  <script>
+    var cima=0;
+    var baixo=0;
+    var direita=0;
+    var esquerda=0;
+    var direcao=0;
+   var player=document.getElementById("player");
+   document.addEventListener('keydown', pegaTecla);
+
+   function pegaTecla(){var tecla = event.keyCode; if(tecla==87){direcao="cima"}else if(tecla==83){direcao="baixo"}}
+
+   setInterval(function(){
+console.log(direcao);
+   },0);
+  </script>
+ </body>
+</html>
