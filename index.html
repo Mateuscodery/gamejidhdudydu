@@ -5,7 +5,7 @@
   <meta charset="utf-8"/>
   <style>
    *{margin:0px;}
-   body{width:100%;height:100vh;overflow:hidden; background:black;}
+   body{width:100%;height:100vh;overflow:hidden;background:black; background-image:url("fundo.png");background-repeat:no-repeat;background-size:cover;}
    #tela{width:52%; height:70vh; border:5px solid none;position:relative; top:10%; margin:auto;}
    #parede_cima{z-index:0; width:100%;height:15vh; position:absolute; top:-1px;}
    #parede_baixo1{z-index:1;width:33%;height:15vh; position:absolute;bottom:-1px;left:0px;}
@@ -62,12 +62,19 @@
     var direita=0;
     var esquerda=0;
     var direcao=0;
+   var tela=document.getElementById("tela")
    var player=document.getElementById("player");
    document.addEventListener('keydown', pegaTecla);
 
    function pegaTecla(){var tecla = event.keyCode; if(tecla==87){direcao="cima"}else if(tecla==83){direcao="baixo"}}
 
    setInterval(function(){
+   var altura = window.screen.height;
+   var largura = window.screen.width;
+   if(largura<=altura){
+   tela.style.display="none";
+   }else{tela.style.display="block";}
+   
    //console.log(direcao);
    },0);
     player.addEventListener("click", function(){tt()})
