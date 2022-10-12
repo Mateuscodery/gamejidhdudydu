@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="pt-br">
  <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -22,7 +22,7 @@
    #sombra3{width:30%;height:14vh; position:absolute; top:44%; left:9.4%; background:black; opacity:0.7;}
    #chao{z-index:0; width:100%;height:100%; position:absolute;}
    #velho{z-index:0;width:16%;height:16vh;position:absolute;top:20%; left:20.4%;}
-   #player{z-index:0;width:16%;height:16vh;position:absolute; bottom:10px; right:42%;}
+   #player{z-index:4;width:16%;height:16vh;position:absolute; bottom:10px; right:42%;}
    @keyframes animate{
     0%{
        opacity: 0;
@@ -68,8 +68,22 @@
    function pegaTecla(){var tecla = event.keyCode; if(tecla==87){direcao="cima"}else if(tecla==83){direcao="baixo"}}
 
    setInterval(function(){
-console.log(direcao);
+   //console.log(direcao);
    },0);
+    player.addEventListener("click", function(){tt()})
+   function tt(){
+   if (!document.fullscreenElement &&    // alternative standard method
+   !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) { //alert("ok") // current working methods
+   if (document.documentElement.requestFullscreen) {
+   document.documentElement.requestFullscreen();
+   } else if (document.documentElement.msRequestFullscreen) {
+   document.documentElement.msRequestFullscreen();
+   } else if (document.documentElement.mozRequestFullScreen) {
+   document.documentElement.mozRequestFullScreen();
+   } else if (document.documentElement.webkitRequestFullscreen) {
+   document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+   }
+   };};
   </script>
  </body>
 </html>
