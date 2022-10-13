@@ -1,28 +1,28 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html lang="pt-br">
  <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <meta charset="utf-8"/>
   <style>
-   *{margin:0px;}
-   body{width:100%;height:100vh;overflow:hidden;background:black; background-image:url("fundo.png");background-repeat:no-repeat;background-size:cover;}
+   *{margin:0px; padding:0px;}
+   body{width:100%;height:100vh;overflow:hidden; background:black;}
    #tela{width:52%; height:70vh; border:5px solid none;position:relative; top:10%; margin:auto;}
    #parede_cima{z-index:0; width:100%;height:15vh; position:absolute; top:-1px;}
-   #parede_baixo1{z-index:1;width:33%;height:15vh; position:absolute;bottom:-1px;left:0px;}
-   #parede_baixo2{z-index:1;width:33%;height:15vh; position:absolute;bottom:-1px;right:0px;}
+   #parede_baixo1{z-index:3;width:33%;height:15vh; position:absolute;bottom:-1px;left:0px;}
+   #parede_baixo2{z-index:3;width:33%;height:15vh; position:absolute;bottom:-1px;right:0px;}
    #parede_esquerda{width:10%;height:48vh; position:absolute; top:11%; left:-0.4%;}
    #parede_direita{width:10%;height:48vh; position:absolute; top:11%; right:0%;}
-   #bau{z-index:2; width:18%;height:13vh; position:absolute; top:15%; right:14%;}
-   #entrar{z-index:2 ;width:10%;height:10vh; position:absolute; bottom:-14%; right:44%; animation: animate 2s linear infinite;}
+   #bau{z-index:1; width:18%;height:13vh; position:absolute; top:15%; right:14%;}
+   #entrar{z-index:0;width:10%;height:10vh; position:absolute; bottom:-14%; right:44%; animation: animate 2s linear infinite;}
    #porta{width:34%;height:25vh; position:absolute; bottom:0px; right:33%;opacity:0.2;}
    #mesa{width:30%;height:14vh; position:absolute; top:39%; left:9.4%;}
    #sombra{z-index:0; width:100%;height:15vh; position:absolute; top:7%; background:black; opacity:0.7;}
-   #sombra1{z-index:2; width:18%;height:13vh; position:absolute; top:17%; right:14%;background:black; opacity:0.7;}
+   #sombra1{z-index:0; width:18%;height:13vh; position:absolute; top:17%; right:14%;background:black; opacity:0.7;}
    #sombra2{width:10%;height:48vh; position:absolute; top:27.7%; right:4%;background:black; opacity:0.7;}
    #sombra3{width:30%;height:14vh; position:absolute; top:44%; left:9.4%; background:black; opacity:0.7;}
    #chao{z-index:0; width:100%;height:100%; position:absolute;}
    #velho{z-index:0;width:16%;height:16vh;position:absolute;top:20%; left:20.4%;}
-   #player{z-index:4;width:16%;height:16vh;position:absolute; bottom:10px; right:42%;}
+   #player{z-index:2;width:16%;height:16vh;position:absolute; bottom:10px; right:42%;}
    @keyframes animate{
     0%{
        opacity: 0;
@@ -34,6 +34,15 @@
      opacity: 0;
        }
       }
+   #zona_fruta{width:10%; height:17%; position:absolute; top:5%; right:1%;}
+   #fruta{width:8%; height:14%; position:absolute; top:5%; right:2.6%;}
+   #direcional{z-index:10; background:none; width:25%; height:20%; position:absolute; bottom:1%; left:1%;display:flex;}
+   #esquerdo{background:none; width:50%; height:100%; position:relative; bottom:5%; left:5%;}
+   #direito{background:none; width:50%; height:100%; position:relative; bottom:5%; left:5%;transform:scalex(-1);}
+   #direcional2{z-index:10; background:none; width:25%; height:20%; position:absolute; bottom:3%; right:1%;display:flex;}
+   #cima{background:none; width:50%; height:100%; position:relative; bottom:5%; left:5%;}
+   #baixo{background:none; width:50%; height:100%; position:relative; bottom:5%; left:5%;transform:scaley(-1);}
+   .controles{display:black;}
   </style>
   <title>htyhtge</title>
  </head>
@@ -56,41 +65,79 @@
    <img src="bau.png" id="bau">
    <img src="porta.png" id="porta">
   </div>
+
+     
+    <img src="fruta-zona.png" id="zona_fruta">
+    <img src="fruta-trevas.png" id="fruta">
+
+   <div id="direcional" class="controles">
+    <img src="direcional.png" id="esquerdo"class="controles">
+    <img src="direcional.png" id="direito"class="controles">
+   </div>
+    <div id="direcional2" class="controles">
+    <img src="direcional2.png" id="cima"class="controles">
+    <img src="direcional2.png" id="baixo"class="controles">
+   </div>
+
+   
   <script>
-    var cima=0;
-    var baixo=0;
-    var direita=0;
-    var esquerda=0;
-    var direcao=0;
-   var tela=document.getElementById("tela")
+    valor=0;
+    var x=42;
+    var y=10;
+    var speed=1;
    var player=document.getElementById("player");
    document.addEventListener('keydown', pegaTecla);
+   document.addEventListener('keyup', soltaTecla);
 
-   function pegaTecla(){var tecla = event.keyCode; if(tecla==87){direcao="cima"}else if(tecla==83){direcao="baixo"}}
 
-   setInterval(function(){
-   var altura = window.screen.height;
-   var largura = window.screen.width;
-   if(largura<=altura){
-   tela.style.display="none";
-   }else{tela.style.display="block";}
+    //pegando teclas
+   var direito=document.getElementById("direito");
+   var esquerdo=document.getElementById("esquerdo");
+   var cima=document.getElementById("cima");
+   var baixo=document.getElementById("baixo");
+     
+    //funçao de click
+  direito.addEventListener("touchstart",function(){valor="d"});
+  esquerdo.addEventListener("touchstart",function(){valor="e"});
+  cima.addEventListener("touchstart",function(){valor="c"});
+  baixo.addEventListener("touchstart",function(){valor="b"});
+ 
+  direito.addEventListener("touchend",function(){valor=0});
+  esquerdo.addEventListener("touchend",function(){valor=0});
+  cima.addEventListener("touchend",function(){valor=0});
+  baixo.addEventListener("touchend",function(){valor=0});
+
+
+   function pegaTecla(){
+   var tecla = event.keyCode;
+        if(tecla==87){valor="c"}
+   else if(tecla==83){valor="b"}
+   else if(tecla==65){valor="e"}
+   else if(tecla==68){ valor="d"}
+                       }
+
+   function soltaTecla(){valor=0;}
    
-   //console.log(direcao);
-   },0);
-    player.addEventListener("click", function(){tt()})
-   function tt(){
-   if (!document.fullscreenElement &&    // alternative standard method
-   !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) { //alert("ok") // current working methods
-   if (document.documentElement.requestFullscreen) {
-   document.documentElement.requestFullscreen();
-   } else if (document.documentElement.msRequestFullscreen) {
-   document.documentElement.msRequestFullscreen();
-   } else if (document.documentElement.mozRequestFullScreen) {
-   document.documentElement.mozRequestFullScreen();
-   } else if (document.documentElement.webkitRequestFullscreen) {
-   document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-   }
-   };};
+    setInterval(function(){ 
+      player.style.right=x*speed+"%"
+      player.style.bottom=y*speed+"%"
+                         },0);
+
+  function ee(){x++; player.src="Player-lado0.png";};
+  function dd(){x--; player.src="Player-lado.png";};
+  function cc(){y++; player.src="Player-atras.png";};
+  function bb(){y--; player.src="Player-frente.png";};
+
+  setInterval(function(){
+
+   if(valor=="d"){x--; player.src="Player-lado.png";};
+   if(valor=="e"){x++; player.src="Player-lado0.png";};
+   if(valor=="c"){y++; player.src="Player-atras.png";};
+   if(valor=="b"){y--; player.src="Player-frente.png";};
+
+  },30)
+ 
+   
   </script>
  </body>
 </html>
